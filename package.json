@@ -7,7 +7,7 @@
     "url": "https://github.com/ericzhangjx/baccarat-score-board.git"
   },
   "license": "UNLICENSED",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
