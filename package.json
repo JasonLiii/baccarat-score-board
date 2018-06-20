@@ -3,7 +3,8 @@
   "description": "Baccarat Score Board Calculator",
   "author": "Eric Zhang <eric@hkasianark.com>",
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "https://github.com/ericzhangjx/baccarat-score-board.git"
   },
   "license": "UNLICENSED",
   "version": "0.1.0",
