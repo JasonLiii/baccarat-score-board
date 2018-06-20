@@ -17,7 +17,8 @@ script:
 deploy:
   provider: npm
   email: "eric@hkasianark.com"
-  api_kei:
+  api_key:
     secure: "MhRzELla7aA8xq5vFh6PYvykYircJMHiPX38m3HZa/JW4ddAt+icGjuJVZuQPzs6FqgXnzGOt+hKoj6BwgZckDUA/VDgIuD5kK0+LnbPxzqLg+oKNe9MKtcVL8koRvMynXG6MBYwbQZ8AIAFMiMEVtWbCYKPUxBpb5mNqeBsXM7jHajN3l0Yxzb/dlIXaHfJTvoo/o1QnHIUMgoZy8zDRqehTn6ruhFMuZ9OgU9m3ot2NptiHF1eofrkz3eQFcHPmKtr+8PbrMqHeFPfLWGp4DfWXnCygwpzock2WJsHYuVDZN3mKuVFQinuMNP1R1Rk9I6/1x1mqE79q6qNquGAptP1R1ricfTrOhiIXRfPcYwJFYKbph7HSkF3OrCF4z6JoSNOcUol4fewohZy4WPJLVuTalDIerdRmcSd6brT638p2Z9TOCOh79E0fW7JxBn7bx/2zJLFOlkUJsdaO74R7wPnO0fDFOca4OPy4TSDT2U5UppKSqx02YU6nIj4rbjB9/gKfQxrV7KCkMbnAp1TmOsklTiyPm4QLWHr/KrSwHuUjQiOxUodUj2vdOzoevi3N9KGu2dVuhjP1auTH9dfDW+sHfilAD5HRRTHB5twAqi5ceikFDtdQYeGdWMVZ55o6YVSfpHY8MbzBY6sbqvqQxXlvNr0ekgs/7+s4eYCc/g="
   on:
+    tags: true
     branch: master
