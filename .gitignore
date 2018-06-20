@@ -28,6 +28,7 @@ Temporary Items
 .apdisk
 
 ### Project
+/.idea/
 /node_modules/
 /dist/
 /types/
