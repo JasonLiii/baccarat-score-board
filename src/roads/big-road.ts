@@ -34,7 +34,9 @@ function wrapRow(
   roadItemGraph: ReadonlyArray<ReadonlyArray<RoundResult | undefined>>,
   rowCount: number,
 ): ReadonlyArray<ReadonlyArray<RoundResult | undefined>> {
-  const resultGraph: (RoundResult | undefined)[][] = [[], [], [], [], [], []];
+  const resultGraph: (RoundResult | undefined)[][] = Array(rowCount)
+    .fill(undefined)
+    .map(() => []);
   let count = 0;
   let countTie = 0;
   let currentRowIndex = 0;
