@@ -16,9 +16,6 @@ export class ScoreBoard {
     return new ScoreBoard(ScoreBoardData.fromRawData(res));
   }
 
-  /**
-   * Todo: 目前只支持传入的 row === 6
-   */
   public getBigRoad(row: number = 6, column: number = 42): BigRoad {
     return new BigRoad(row, column, this.roundResults);
   }
