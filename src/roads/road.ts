@@ -3,11 +3,10 @@ import { RoundResult } from '../round-result';
 // Editable RoadRow, internal use only
 export type InnerRoadRow = (RoundResult | undefined)[];
 // Editable RoadArray, internal use only
-export type InnerRoadArray = (RoadRow | undefined)[];
+export type InnerRoadArray = InnerRoadRow[];
 
 export type RoadRow = ReadonlyArray<RoundResult | undefined>;
-// Todo: 检查是否会出现空行空列?
-export type RoadArray = ReadonlyArray<RoadRow | undefined>;
+export type RoadArray = ReadonlyArray<RoadRow>;
 
 export abstract class Road {
   protected abstract readonly array: RoadArray;
@@ -39,11 +38,6 @@ export abstract class Road {
     rowIndex: number,
     columnIndex: number,
   ): RoundResult | undefined {
-    const row: RoadRow | undefined = this.array[rowIndex];
-    if (typeof row !== 'undefined') {
-      return row[columnIndex];
-    } else {
-      return undefined;
-    }
+    return this.array[rowIndex][columnIndex];
   }
 }

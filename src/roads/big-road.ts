@@ -1,4 +1,4 @@
-import { Road, RoadArray, RoadRow } from './road';
+import { Road, RoadArray } from './road';
 import { GameResult, RoundResult } from '../round-result';
 import { wrapColumn, wrapRow } from './shared';
 
@@ -36,18 +36,24 @@ export class BigRoad extends Road {
     protected readonly roundResults: ReadonlyArray<RoundResult>,
   ) {
     super(row, column, roundResults);
+    // Todo: 实际上宽度不一致
     const graph = generateBigRoadGraph(roundResults, row);
     const maxColCount = Math.max(
-      ...graph
-        .filter((row): row is RoadRow => typeof row !== 'undefined')
-        .map(row => row.length),
+      0, // In case no row exists
+      ...graph.map(row => row.length),
     );
-    this.array = graph.map(row => {
-      if (typeof row !== 'undefined') {
-        return row.slice(maxColCount - row.length - column);
-      } else {
-        return row;
-      }
-    });
+    this.array =
+      column >= maxColCount
+        ? graph // 若 column >= maxColCount 则由于向前对齐 返回整个二维数组
+        : graph.map(row => {
+            // 若 delta < column 则从后往前切出所需数据
+            // 若 delta >= column 则所需数据部分全部为空 直接返回包含空元素的行
+            const delta = maxColCount - row.length;
+            if (delta >= column) {
+              return Array(column).fill(undefined);
+            } else {
+              return row.slice(delta - column);
+            }
+          });
   }
 }
