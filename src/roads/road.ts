@@ -1,5 +1,10 @@
 import { RoundResult } from '../round-result';
 
+// Editable RoadRow, internal use only
+export type InnerRoadRow = (RoundResult | undefined)[];
+// Editable RoadArray, internal use only
+export type InnerRoadArray = (RoadRow | undefined)[];
+
 export type RoadRow = ReadonlyArray<RoundResult | undefined>;
 // Todo: 检查是否会出现空行空列?
 export type RoadArray = ReadonlyArray<RoadRow | undefined>;
