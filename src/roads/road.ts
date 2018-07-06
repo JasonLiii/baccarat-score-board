@@ -22,6 +22,14 @@ export abstract class Road {
     }
   }
 
+  public get rowCount(): number {
+    return this.row;
+  }
+
+  public get columnCount(): number {
+    return this.column;
+  }
+
   public getItem(
     rowIndex: number,
     columnIndex: number,

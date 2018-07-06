@@ -50,12 +50,4 @@ export class BigRoad extends Road {
       }
     });
   }
-
-  public get rowCount(): number {
-    return this.row;
-  }
-
-  public get columnCount(): number {
-    return this.column;
-  }
 }
