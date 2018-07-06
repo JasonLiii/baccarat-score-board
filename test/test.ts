@@ -1,4 +1,18 @@
 import { RoundResult, ScoreBoard } from '../src';
+import { Road } from '../src/roads/road';
+
+function printRoad(this: void, road: Road): void {
+  const chars: string[] = [];
+  for (let row = 0; row < road.rowCount; row++) {
+    for (let column = 0; column < road.columnCount; column++) {
+      const item: RoundResult | undefined = road.getItem(row, column);
+      // Do whatever you want with item data;
+      chars.push(`${item ? item.result : ' '}`);
+    }
+    chars.push('\n');
+  }
+  global.console.log(chars.join(''));
+}
 
 // Data input;
 const input: ReadonlyArray<string> = [
@@ -237,15 +251,8 @@ const input: ReadonlyArray<string> = [
   'B8n',
 ];
 const board = ScoreBoard.fromRawData(input);
-const bigRoad = board.getBigRoad(6, 42);
+const beadRoad = board.getBeadRoad(6, 6);
+const bigRoad = board.getBigRoad(6, 19);
 
-const chars: string[] = [];
-for (let row = 0; row < bigRoad.rowCount; row++) {
-  for (let column = 0; column < bigRoad.columnCount; column++) {
-    const item: RoundResult | undefined = bigRoad.getItem(row, column);
-    // Do whatever you want with item data;
-    chars.push(`${item ? item.result : ' '}`);
-  }
-  chars.push('\n');
-}
-global.console.log(chars.join(''));
+printRoad(beadRoad);
+printRoad(bigRoad);

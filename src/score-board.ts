@@ -1,6 +1,7 @@
 import { RoundResult } from './round-result';
 import { ScoreBoardData } from './score-board-data';
 import { BigRoad } from './roads/big-road';
+import { BeadRoad } from './roads/bead-road';
 
 export class ScoreBoard {
   private readonly roundResults: ReadonlyArray<RoundResult>;
@@ -14,6 +15,10 @@ export class ScoreBoard {
     const res = results.slice(); // 浅拷贝一份数组 用于 reverse()
     res.reverse(); // 已知 WebSocket 传回的 string[] 中 最新的数据在最前面
     return new ScoreBoard(ScoreBoardData.fromRawData(res));
+  }
+
+  public getBeadRoad(row: number = 6, column: number = 14): BeadRoad {
+    return new BeadRoad(row, column, this.roundResults);
   }
 
   public getBigRoad(row: number = 6, column: number = 42): BigRoad {
