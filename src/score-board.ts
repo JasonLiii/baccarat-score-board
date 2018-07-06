@@ -1,6 +1,7 @@
 import { RoundResult } from './round-result';
 import { ScoreBoardData } from './score-board-data';
 import { BigRoad } from './roads/big-road';
+import { BeadRoad } from './roads/bead-road';
 
 export class ScoreBoard {
   private readonly roundResults: ReadonlyArray<RoundResult>;
@@ -16,9 +17,10 @@ export class ScoreBoard {
     return new ScoreBoard(ScoreBoardData.fromRawData(res));
   }
 
-  /**
-   * Todo: 目前只支持传入的 row === 6
-   */
+  public getBeadRoad(row: number = 6, column: number = 14): BeadRoad {
+    return new BeadRoad(row, column, this.roundResults);
+  }
+
   public getBigRoad(row: number = 6, column: number = 42): BigRoad {
     return new BigRoad(row, column, this.roundResults);
   }
