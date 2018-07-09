@@ -1,13 +1,13 @@
-import { RoundResult, ScoreBoard } from '../src';
+import { ScoreBoard } from '../src';
 import { Road } from '../src/roads/road';
 
-function printRoad(this: void, road: Road): void {
+function printRoad<T extends object>(this: void, road: Road<T>): void {
   const chars: string[] = [];
   for (let row = 0; row < road.rowCount; row++) {
     for (let column = 0; column < road.columnCount; column++) {
-      const item: RoundResult | undefined = road.getItem(row, column);
+      const item = road.getItem(row, column);
       // Do whatever you want with item data;
-      chars.push(`${item ? item.result : ' '}`);
+      chars.push(`${item ? (item as any).result : ' '}`);
     }
     chars.push('\n');
   }
