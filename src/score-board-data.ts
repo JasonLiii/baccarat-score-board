@@ -42,7 +42,7 @@ export class ScoreBoardData {
     }
   }
 
-  private static strToRoundResult(str: string): RoundResult {
+  private static strToRoundResult(str: string, order: number): RoundResult {
     const result = Number(str[1]);
     const winner = ScoreBoardData.GameResultParser(str[0]);
     const pair = ScoreBoardData.PairResultParser(str[2]);
@@ -55,6 +55,6 @@ export class ScoreBoardData {
     if (typeof pair === 'undefined') {
       throw new Error(`[Invalid] Pair not in range: ${str}`);
     }
-    return new RoundResult(result, winner, pair);
+    return new RoundResult(order, result, winner, pair);
   }
 }
