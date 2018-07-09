@@ -1,39 +1,34 @@
-import { RoundResult } from '../round-result';
+import { InnerRoadArray, RoadArray } from './road';
 
 /**
- * 将RoadItem[]转换为RoadItem[][]
+ * 将 RoadItem[rowCount][] 转换为 RoadItem[rowCount][columnCount]
+ * 已知此时的 roadItemGraph 每行长度均一致
  */
-export function wrapColumn(
-  roadItemList: ReadonlyArray<RoundResult>,
-): ReadonlyArray<ReadonlyArray<RoundResult>> {
-  const resultGraph: RoundResult[][] = [];
-  let tempColumn: RoundResult[] = [];
-  for (let i = 0; i < roadItemList.length; i++) {
-    if (tempColumn.length === 0) {
-      tempColumn.push(roadItemList[i]);
-    } else if (
-      tempColumn[tempColumn.length - 1].gameResult ===
-      roadItemList[i].gameResult
-    ) {
-      tempColumn.push(roadItemList[i]);
+function truncateColumn<T extends object>(
+  this: void,
+  roadItemGraph: InnerRoadArray<T>,
+  columnCount: number,
+): void {
+  roadItemGraph.forEach(row => {
+    if (columnCount < row.length) {
+      row.splice(0, row.length - columnCount);
     } else {
-      resultGraph.push(tempColumn);
-      tempColumn = [];
-      tempColumn.push(roadItemList[i]);
+      row.push(...Array(columnCount - row.length).fill(undefined));
     }
-  }
-  resultGraph.push(tempColumn);
-  return resultGraph;
+  });
 }
 
 /**
- * 将RoadItem[][]转换为RoadItem[][rowCount]
+ * 将 RoadItem[][] 转换为 RoadItem[rowCount][columnCount]
+ * Todo: refactor
  */
-export function wrapRow(
-  roadItemGraph: ReadonlyArray<ReadonlyArray<RoundResult | undefined>>,
+export function wrapRow<T extends object>(
+  this: void,
+  roadItemGraph: RoadArray<T>,
   rowCount: number,
-): ReadonlyArray<ReadonlyArray<RoundResult | undefined>> {
-  const resultGraph: (RoundResult | undefined)[][] = Array(rowCount)
+  columnCount: number,
+): RoadArray<T> {
+  const resultGraph: InnerRoadArray<T> = Array(rowCount)
     .fill(undefined)
     .map(() => []);
   let count = 0;
@@ -79,5 +74,19 @@ export function wrapRow(
       }
     }
   }
+
+  // 获取最大行的宽度
+  const maxColCount = Math.max(
+    0, // In case no row exists
+    ...resultGraph.map(row => row.length),
+  );
+  // 使用 undefined 填充所有行的宽度为最大行宽度
+  resultGraph.forEach(row => {
+    while (row.length < maxColCount) {
+      row.push(undefined);
+    }
+  });
+  // 限制列数
+  truncateColumn<T>(resultGraph, columnCount);
   return resultGraph;
 }
