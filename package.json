@@ -15,7 +15,7 @@
     "build": "tsc --project ./src/tsconfig.json",
     "clean": "rm -rf ./dist/ ./types/",
     "test": "ts-node --project ./test/tsconfig.json ./test/test.ts",
-    "prepublish": "npm run-script clean && npm run-script build"
+    "prepublishOnly": "npm run-script clean && npm run-script build"
   },
   "engines": {
     "node": "^10.4.1",
