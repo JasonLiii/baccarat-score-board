@@ -20,11 +20,11 @@ function generateBigRoadItemList(
     .map(res => {
       return res.gameResult !== GameResult.Tie
         ? {
-          order: res.order,
-          result: res.result,
-          gameResult: res.gameResult,
-          pairResult: res.pairResult,
-        }
+            order: res.order,
+            result: res.result,
+            gameResult: res.gameResult,
+            pairResult: res.pairResult,
+          }
         : undefined;
     })
     .filter((result): result is BigRoadItem => typeof result !== 'undefined');
@@ -42,7 +42,8 @@ function generateBigRoadGraph(
   return wrapRow(
     wrapColumn(
       generateBigRoadItemList(roundResults),
-      (previousItem, currentItem) => previousItem.gameResult === currentItem.gameResult,
+      (previousItem, currentItem) =>
+        previousItem.gameResult === currentItem.gameResult,
     ),
     rowCount,
     columnCount,

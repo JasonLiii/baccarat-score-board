@@ -10,25 +10,25 @@ import {
 } from './shared';
 
 /**
- * 根据 BigRoad 生成 SmallRoad 所需一维数据
+ * 根据 BigRoad 生成 CockroachRoad 所需一维数据
  */
-function generateSmallRoadItemList(
+function generateCockroachRoadItemList(
   bigRoadItemGraph: RoadArray<BigRoadItem>,
 ): ReadonlyArray<DownRoadItem> {
-  return generateDownRoadData(bigRoadItemGraph, DownRoadGap.SmallRoadGap);
+  return generateDownRoadData(bigRoadItemGraph, DownRoadGap.CockroachRoadGap);
 }
 
 /**
- * 生成 SmallRoad 对应的二维数组
+ * 生成 CockroachRoad 对应的二维数组
  */
-function generateSmallRoadGraph(
+function generateCockroachRoadRoadGraph(
   bigRoadGraph: RoadArray<BigRoadItem>,
   rowCount: number,
   columnCount: number,
 ): RoadArray<DownRoadItem> {
   return wrapRow(
     wrapColumn(
-      generateSmallRoadItemList(bigRoadGraph),
+      generateCockroachRoadItemList(bigRoadGraph),
       (previousItem, currentItem) =>
         previousItem.repetition === currentItem.repetition,
     ),
@@ -47,7 +47,7 @@ class InnerBigRoad extends BigRoad {
   }
 }
 
-export class SmallRoad extends Road<DownRoadItem> {
+export class CockroachRoad extends Road<DownRoadItem> {
   protected readonly array: RoadArray<DownRoadItem>;
 
   public constructor(
@@ -57,6 +57,6 @@ export class SmallRoad extends Road<DownRoadItem> {
   ) {
     super(row, column, roundResults);
     const bigRoad = new InnerBigRoad(row, roundResults.length, roundResults);
-    this.array = generateSmallRoadGraph(bigRoad.rawArray, row, column);
+    this.array = generateCockroachRoadRoadGraph(bigRoad.rawArray, row, column);
   }
 }

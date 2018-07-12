@@ -1,7 +1,6 @@
 import { InnerRoadArray, RoadArray } from './road';
 import { BigRoadItem } from './big-road';
 
-
 /**
  * 下三路所共用的 RoadItem 结构
  */
@@ -9,7 +8,7 @@ export type DownRoadItem = Readonly<{
   /**
    * RoundResult 对应的顺序
    */
-  order: number, // 用于折行后确认先后关系
+  order: number; // 用于折行后确认先后关系
   /**
    * repetition === true 为红色 否则为蓝色
    */
@@ -32,7 +31,10 @@ export const enum DownRoadGap {
  * @param bigRoadGraph
  * @param rowGap
  */
-export function generateDownRoadData(bigRoadGraph: RoadArray<BigRoadItem>, rowGap: DownRoadGap): ReadonlyArray<DownRoadItem> {
+export function generateDownRoadData(
+  bigRoadGraph: RoadArray<BigRoadItem>,
+  rowGap: DownRoadGap,
+): ReadonlyArray<DownRoadItem> {
   /**
    * 用于辅助生成路子图的IndexItemList
    */
@@ -81,21 +83,26 @@ export function generateDownRoadData(bigRoadGraph: RoadArray<BigRoadItem>, rowGa
       if (item.rowIndex === 0) {
         downGraphArr.push({
           order: item.order,
-          repetition: lengthArr[item.columnIndex - rowGap - 1] === lengthArr[item.columnIndex - 1],
+          repetition:
+            lengthArr[item.columnIndex - rowGap - 1] ===
+            lengthArr[item.columnIndex - 1],
         });
       } else {
-        const lastItem = bigRoadGraph[item.rowIndex - 1][item.columnIndex - rowGap];
-        const targetItem = bigRoadGraph[item.rowIndex][item.columnIndex - rowGap];
+        const lastItem =
+          bigRoadGraph[item.rowIndex - 1][item.columnIndex - rowGap];
+        const targetItem =
+          bigRoadGraph[item.rowIndex][item.columnIndex - rowGap];
         downGraphArr.push({
           order: item.order,
-          repetition: typeof lastItem === 'undefined' || typeof targetItem !== 'undefined',
+          repetition:
+            typeof lastItem === 'undefined' ||
+            typeof targetItem !== 'undefined',
         });
       }
     }
   });
   return downGraphArr;
 }
-
 
 /**
  * 将 Item[] 转换为 Item[][]
@@ -111,7 +118,9 @@ export function wrapColumn<T extends object>(
   for (let i = 0; i < roadItemList.length; i++) {
     if (tempColumn.length === 0) {
       tempColumn.push(roadItemList[i]);
-    } else if (shouldNoWrapFn(tempColumn[tempColumn.length - 1], roadItemList[i])) {
+    } else if (
+      shouldNoWrapFn(tempColumn[tempColumn.length - 1], roadItemList[i])
+    ) {
       tempColumn.push(roadItemList[i]);
     } else {
       resultGraph.push(tempColumn);

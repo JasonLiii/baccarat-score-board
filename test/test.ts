@@ -1,7 +1,11 @@
 import { ScoreBoard } from '../src';
 import { Road } from '../src/roads/road';
 
-function printRoad<T extends object>(this: void, road: Road<T>, selector: (this: void, item: T) => string): void {
+function printRoad<T extends object>(
+  this: void,
+  road: Road<T>,
+  selector: (this: void, item: T) => string,
+): void {
   const chars: string[] = [];
   for (let row = 0; row < road.rowCount; row++) {
     for (let column = 0; column < road.columnCount; column++) {
@@ -255,8 +259,10 @@ const beadRoad = board.getBeadRoad(6, 6);
 const bigRoad = board.getBigRoad(6, 19);
 const bigEyeRoad = board.getBigEyeRoad(6, 38);
 const smallRoad = board.getSmallRoad(6, 19);
+const cockroachRoad = board.getCockroachRoad(6, 19);
 
 printRoad(beadRoad, item => item.result.toString());
 printRoad(bigRoad, item => item.result.toString());
-printRoad(bigEyeRoad, item => item.repetition ? 'R' : 'B');
-printRoad(smallRoad, item => item.repetition ? 'R' : 'B');
+printRoad(bigEyeRoad, item => (item.repetition ? 'R' : 'B'));
+printRoad(smallRoad, item => (item.repetition ? 'R' : 'B'));
+printRoad(cockroachRoad, item => (item.repetition ? 'R' : 'B'));

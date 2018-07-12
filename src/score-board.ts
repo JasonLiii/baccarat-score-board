@@ -4,6 +4,7 @@ import { BigRoad } from './roads/big-road';
 import { BeadRoad } from './roads/bead-road';
 import { BigEyeRoad } from './roads/big-eye-road';
 import { SmallRoad } from './roads/small-road';
+import { CockroachRoad } from './roads/cockroach-road';
 
 export class ScoreBoard {
   private readonly roundResults: ReadonlyArray<RoundResult>;
@@ -33,5 +34,9 @@ export class ScoreBoard {
 
   public getSmallRoad(row: number = 6, column: number = 42): SmallRoad {
     return new SmallRoad(row, column, this.roundResults);
+  }
+
+  public getCockroachRoad(row: number = 6, column: number = 42): CockroachRoad {
+    return new CockroachRoad(row, column, this.roundResults);
   }
 }
