@@ -2,6 +2,7 @@ import { RoundResult } from './round-result';
 import { ScoreBoardData } from './score-board-data';
 import { BigRoad } from './roads/big-road';
 import { BeadRoad } from './roads/bead-road';
+import { SmallRoad } from './roads/small-road';
 
 export class ScoreBoard {
   private readonly roundResults: ReadonlyArray<RoundResult>;
@@ -23,5 +24,9 @@ export class ScoreBoard {
 
   public getBigRoad(row: number = 6, column: number = 42): BigRoad {
     return new BigRoad(row, column, this.roundResults);
+  }
+
+  public getSmallRoad(row: number = 6, column: number = 42): SmallRoad {
+    return new SmallRoad(row, column, this.roundResults);
   }
 }

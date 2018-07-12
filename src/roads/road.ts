@@ -1,6 +1,6 @@
-// Editable RoadRow, internal use only
 import { RoundResult } from '../round-result';
 
+// Editable RoadRow, internal use only
 export type InnerRoadRow<T extends object> = (T | undefined)[];
 // Editable RoadArray, internal use only
 export type InnerRoadArray<T extends object> = InnerRoadRow<T>[];
