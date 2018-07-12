@@ -253,8 +253,10 @@ const input: ReadonlyArray<string> = [
 const board = ScoreBoard.fromRawData(input);
 const beadRoad = board.getBeadRoad(6, 6);
 const bigRoad = board.getBigRoad(6, 19);
+const bigEyeRoad = board.getBigEyeRoad(6, 38);
 const smallRoad = board.getSmallRoad(6, 19);
 
 printRoad(beadRoad, item => item.result.toString());
 printRoad(bigRoad, item => item.result.toString());
+printRoad(bigEyeRoad, item => item.repetition ? 'R' : 'B');
 printRoad(smallRoad, item => item.repetition ? 'R' : 'B');
