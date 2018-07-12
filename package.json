@@ -7,7 +7,7 @@
     "url": "https://github.com/ericzhangjx/baccarat-score-board.git"
   },
   "license": "UNLICENSED",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "main": "./dist/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -15,7 +15,7 @@
     "build": "tsc --project ./src/tsconfig.json",
     "clean": "rm -rf ./dist/ ./types/",
     "test": "ts-node --project ./test/tsconfig.json ./test/test.ts",
-    "prepublish": "npm run-script clean && npm run-script build"
+    "prepublishOnly": "npm run-script clean && npm run-script build"
   },
   "engines": {
     "node": "^10.4.1",
