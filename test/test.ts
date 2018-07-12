@@ -266,3 +266,15 @@ printRoad(bigRoad, item => item.result.toString());
 printRoad(bigEyeRoad, item => (item.repetition ? 'R' : 'B'));
 printRoad(smallRoad, item => (item.repetition ? 'R' : 'B'));
 printRoad(cockroachRoad, item => (item.repetition ? 'R' : 'B'));
+
+const handler = <T extends object>(
+  this: void,
+  item: T | undefined,
+  rowIndex: number,
+  columnIndex: number,
+): void => global.console.log(`[${rowIndex}, ${columnIndex}]:`, item);
+beadRoad.forEach(handler);
+bigRoad.forEach(handler);
+bigEyeRoad.forEach(handler);
+smallRoad.forEach(handler);
+cockroachRoad.forEach(handler);
