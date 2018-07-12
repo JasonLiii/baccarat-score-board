@@ -1,13 +1,17 @@
-import { RoundResult, ScoreBoard } from '../src';
+import { ScoreBoard } from '../src';
 import { Road } from '../src/roads/road';
 
-function printRoad(this: void, road: Road): void {
+function printRoad<T extends object>(
+  this: void,
+  road: Road<T>,
+  selector: (this: void, item: T) => string,
+): void {
   const chars: string[] = [];
   for (let row = 0; row < road.rowCount; row++) {
     for (let column = 0; column < road.columnCount; column++) {
-      const item: RoundResult | undefined = road.getItem(row, column);
+      const item = road.getItem(row, column);
       // Do whatever you want with item data;
-      chars.push(`${item ? item.result : ' '}`);
+      chars.push(`${item ? selector(item) : ' '}`);
     }
     chars.push('\n');
   }
@@ -253,6 +257,24 @@ const input: ReadonlyArray<string> = [
 const board = ScoreBoard.fromRawData(input);
 const beadRoad = board.getBeadRoad(6, 6);
 const bigRoad = board.getBigRoad(6, 19);
+const bigEyeRoad = board.getBigEyeRoad(6, 38);
+const smallRoad = board.getSmallRoad(6, 19);
+const cockroachRoad = board.getCockroachRoad(6, 19);
 
-printRoad(beadRoad);
-printRoad(bigRoad);
+printRoad(beadRoad, item => item.result.toString());
+printRoad(bigRoad, item => item.result.toString());
+printRoad(bigEyeRoad, item => (item.repetition ? 'R' : 'B'));
+printRoad(smallRoad, item => (item.repetition ? 'R' : 'B'));
+printRoad(cockroachRoad, item => (item.repetition ? 'R' : 'B'));
+
+const handler = <T extends object>(
+  this: void,
+  item: T | undefined,
+  rowIndex: number,
+  columnIndex: number,
+): void => global.console.log(`[${rowIndex}, ${columnIndex}]:`, item);
+beadRoad.forEach(handler);
+bigRoad.forEach(handler);
+bigEyeRoad.forEach(handler);
+smallRoad.forEach(handler);
+cockroachRoad.forEach(handler);
