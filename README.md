@@ -14,4 +14,10 @@ for (let row = 0; row < bigRoad.rowCount; row++) {
     // Do whatever you want with item data;
   }
 }
+
+// Or you can use with an iteration handler
+bigRoad.forEach((item, rowIndex, columnIndex) =>
+  // Do whatever you want with item data;
+  global.console.log(`[${rowIndex}, ${columnIndex}]:`, item),
+);
 ```
