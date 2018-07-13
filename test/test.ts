@@ -285,3 +285,16 @@ global.console.log('Tie:', board.tieCount);
 global.console.log('Natural:', board.naturalCount);
 global.console.log('BankerPair:', board.bankerPairCount);
 global.console.log('PlayerPair:', board.playerPairCount);
+
+global.console.log(
+  'PlayerPrediction:',
+  bigEyeRoad.playerPrediction,
+  smallRoad.playerPrediction,
+  cockroachRoad.playerPrediction,
+);
+global.console.log(
+  'BankerPrediction:',
+  bigEyeRoad.bankerPrediction,
+  smallRoad.bankerPrediction,
+  cockroachRoad.bankerPrediction,
+);
