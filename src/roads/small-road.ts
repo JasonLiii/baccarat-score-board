@@ -1,6 +1,4 @@
 import { RoundResult } from '../round-result';
-import { Road, RoadArray } from './road';
-import { BigRoad, BigRoadItem } from './big-road';
 import {
   DownRoadGap,
   DownRoadItem,
@@ -8,6 +6,9 @@ import {
   wrapColumn,
   wrapRow,
 } from './shared';
+import { SharedBigRoad } from './shared-big-road';
+import { Road, RoadArray } from './road';
+import { BigRoadItem } from './big-road';
 
 /**
  * 根据 BigRoad 生成 SmallRoad 所需一维数据
@@ -37,16 +38,6 @@ function generateSmallRoadGraph(
   );
 }
 
-/**
- * 对外暴露出 getter() rawArray
- * 用于 SmallRoad 的数据预处理
- */
-class InnerBigRoad extends BigRoad {
-  public get rawArray(): RoadArray<BigRoadItem> {
-    return this.array;
-  }
-}
-
 export class SmallRoad extends Road<DownRoadItem> {
   protected readonly array: RoadArray<DownRoadItem>;
 
@@ -56,7 +47,7 @@ export class SmallRoad extends Road<DownRoadItem> {
     protected readonly roundResults: ReadonlyArray<RoundResult>,
   ) {
     super(row, column, roundResults);
-    const bigRoad = new InnerBigRoad(row, roundResults.length, roundResults);
+    const bigRoad = new SharedBigRoad(row, roundResults.length, roundResults);
     this.array = generateSmallRoadGraph(bigRoad.rawArray, row, column);
   }
 }
