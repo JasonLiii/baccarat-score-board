@@ -21,7 +21,7 @@ export abstract class Road<T extends object> {
   protected constructor(
     protected readonly row: number,
     protected readonly column: number,
-    protected readonly results: ReadonlyArray<RoundResult>,
+    protected readonly roundResults: ReadonlyArray<RoundResult>,
   ) {
     if (
       !Number.isInteger(row) ||

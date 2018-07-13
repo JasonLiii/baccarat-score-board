@@ -278,3 +278,23 @@ bigRoad.forEach(handler);
 bigEyeRoad.forEach(handler);
 smallRoad.forEach(handler);
 cockroachRoad.forEach(handler);
+
+global.console.log('Banker:', board.bankerCount);
+global.console.log('Player:', board.playerCount);
+global.console.log('Tie:', board.tieCount);
+global.console.log('Natural:', board.naturalCount);
+global.console.log('BankerPair:', board.bankerPairCount);
+global.console.log('PlayerPair:', board.playerPairCount);
+
+global.console.log(
+  'PlayerPrediction:',
+  bigEyeRoad.playerPrediction,
+  smallRoad.playerPrediction,
+  cockroachRoad.playerPrediction,
+);
+global.console.log(
+  'BankerPrediction:',
+  bigEyeRoad.bankerPrediction,
+  smallRoad.bankerPrediction,
+  cockroachRoad.bankerPrediction,
+);

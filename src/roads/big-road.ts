@@ -1,5 +1,5 @@
-import { Road, RoadArray } from './road';
 import { GameResult, PairResult, RoundResult } from '../round-result';
+import { Road, RoadArray } from './road';
 import { wrapColumn, wrapRow } from './shared';
 
 export type BigRoadItem = Readonly<{
