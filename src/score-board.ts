@@ -1,4 +1,4 @@
-import { RoundResult } from './round-result';
+import { GameResult, PairResult, RoundResult } from './round-result';
 import { fromRawData } from './score-board-data';
 import { BeadRoad } from './roads/bead-road';
 import { BigRoad } from './roads/big-road';
@@ -12,6 +12,67 @@ export class ScoreBoard {
   public constructor(roundResults: ReadonlyArray<RoundResult>) {
     // 内部存储一个新的 ReadonlyArray<RoundResult> 实例
     this.roundResults = roundResults.map(result => RoundResult.from(result));
+  }
+
+  /**
+   * Banker Count
+   */
+  public get bankerCount(): number {
+    return this.roundResults.filter(
+      round => round.gameResult === GameResult.BankerWin,
+    ).length;
+  }
+
+  /**
+   * Player Count
+   */
+  public get playerCount(): number {
+    return this.roundResults.filter(
+      round => round.gameResult === GameResult.PlayerWin,
+    ).length;
+  }
+
+  /**
+   * Tie Count
+   */
+  public get tieCount(): number {
+    return this.roundResults.filter(
+      round => round.gameResult === GameResult.Tie,
+    ).length;
+  }
+
+  /**
+   * Natural Count
+   * 8/9点 即为 Natural
+   */
+  public get naturalCount(): number {
+    return this.roundResults.filter(
+      round => round.result === 8 || round.result === 9,
+    ).length;
+  }
+
+  /**
+   * Banker Pair Count
+   * 包括 BankerPair & AllPair
+   */
+  public get bankerPairCount(): number {
+    return this.roundResults.filter(
+      round =>
+        round.pairResult === PairResult.BankerPair ||
+        round.pairResult === PairResult.AllPair,
+    ).length;
+  }
+
+  /**
+   * Player Pair Count
+   * 包括 PlayerPair & AllPair
+   */
+  public get playerPairCount(): number {
+    return this.roundResults.filter(
+      round =>
+        round.pairResult === PairResult.PlayerPair ||
+        round.pairResult === PairResult.AllPair,
+    ).length;
   }
 
   public static fromRawData(results: ReadonlyArray<string>): ScoreBoard {
