@@ -3,13 +3,13 @@ node_js: stable
 sudo: false
 
 install:
-  - npm install;
+- npm install;
 
 before_script:
-  - npm run-script clean;
+- npm run-script clean;
 
 script:
-  - npm run-script build;
+- npm run-script build;
 
 deploy:
   provider: npm
