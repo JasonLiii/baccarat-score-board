@@ -3,20 +3,20 @@ node_js: stable
 sudo: false
 
 install:
-  - npm install;
+- npm install;
 
 before_script:
-  - npm run-script clean;
+- npm run-script clean;
 
 script:
-  - npm run-script build;
+- npm run-script build;
 
 deploy:
   provider: npm
   email: eric@hkasianark.com
   skip_cleanup: true
   api_key:
-    secure: 0WpVNOPYqdvzZ6rVBwnJ/9JkN2fYPodAx29lD/BRkgGj1hh4whJOdW34zQmj7+a6948m+OqIpq7DY/ue5yCYqH2L5OCxeLAd4DABZgLYSXlEZ8Ld1GL2CEsT1sWpr1ppxHRKlBJGYoD/ApxErDgdKV5VRxATfzg02SJqrRD+guqSZzVWCyfREVF0T8R6Qosw0hyP2XhgczUEyWcPdLcTS+tRAeKOGkpYqNWPZOnHrrSyJVr++rtgg9mTG0yv1JqqE0bllBrkcQjftiSXb6q/T7/OY+hhQwiVj5mzjRUigfRUHRB9EWQz6bWl4UefdVIq67V3FsmTU3BoTSyYRsvoLK6x1UFEK55O6sKiCvCc41eR50ZUM/1u/vjITOSchrI++L+aC/8/FPFJLL5tiN/YSgqzPpjZG+Q6FHPQNjiE3QS7AQNqNbm9yE61BVVcgJFLG5BFKlIPS0GLsYSVFiUFgq2Cr46F4RaFlc92g8a8t88CsuQF+71TKhO5g1lgyQwIPpD74mRlDfxRNCpJwSkaDeGMwAPjIVGHLckWtfyPzq0aBCwZUUuHkY3WonefKXIIp+eph5p//ANjL500Bi3Ejq/CHkv5/2BXsYGTZDRimOCr7u6m6Q8LAYW6rNVzLgAYaT1+rp00ZYcIVoBuXgJL4VwQWfG2Hz7Vp332gw3gOtQ=
+    secure: zdSS0mH1Au+eu/IjqxJfEx4/fp/3LIi4AhFeNEUqVF/UrVzlozRs97Y7aZKNBaYiTFZXSRYr0eJrMuGgdgM38S6YTr/Vrf+Dx3Kia4Hv8s2wIFq6OToPubieE7oEPp5etNzibT8SdbLNuoe4dXkv8q+s+G91Y95xLbrPubMKPC7ea+uxcj4jEovVGgvtOoW/1k7Y2Ll995j2Y+wFxR58+ZXTbpGPj1YIoc1+I0j7I5/QiKYs9TlnYtEHaXy1M8g2WYLrngqvEYaKZmbcVhPJC9e5+3DEKPhuBi2F2H2yHynDwvOORpfND2EvUjUgMTHjSWjMIK8GxG3GmqOdBnV9/TmeFpZYrbJIq94ys5wMqCDHWoDad6TfBA+8qJzWPFazNuLS9FJaNC7y54f7/JOT0veTTTDH+SQWCT7r7Fuw7JMxLRJpTRzpSgbCL/iXihSO0WqH36XS2r6jGZXYHl8C3JxfeI55OfeKM5sGlkI40lKWtobOKfuOmOLuSmkssNsCSlDuoUtTfHdROsCcDBiyuWwTQItESQtHWv4LUwelDC4tEgpWtjgcYBtM2p6pNm5fJl3Rssr6rtCq8xiV4BOuyUr8+a59IaxQs+0MquxYGNGwA2aI1lKbWyQOv9icftqrRAs+d2QE+rgTTEeNXiWOjQ83IaptTyJp+iajHZjsLEA=
   on:
     tags: true
     branch: master
