@@ -41,33 +41,29 @@ export function generateDownRoadData(
    * 用于辅助生成路子图的IndexItemList
    */
   interface IndexItem {
-    rowIndex: number;
-    columnIndex: number;
-    order: number;
+    readonly rowIndex: number;
+    readonly columnIndex: number;
+    readonly order: number;
   }
 
   const maxColumnCount = Math.max(0, ...bigRoadGraph.map(row => row.length));
   const downGraphArr: DownRoadItem[] = [];
-  const down: DownRoadItem = { order: 1, repetition: false };
-  downGraphArr.push(down);
+
+  // Todo: no reason to push this dummy item into downGraphArr
+  // const down: DownRoadItem = { order: 1, repetition: false };
+  // downGraphArr.push(down);
+
+  /**
+   * 用一维数组保存 BigRoad 每个 item 的信息
+   * 使用 item.order 纠正排序后再转换为 downGraphArr
+   */
   const indexArr: IndexItem[] = [];
+  /**
+   * 保存 BigRoad 每一列的有效长度
+   */
   const lengthArr: number[] = [];
+
   let beginIndex: number;
-  for (let columnIndex = 0; columnIndex < maxColumnCount; columnIndex++) {
-    let currentLength = 0;
-    for (let rowIndex = 0; rowIndex < bigRoadGraph.length; rowIndex++) {
-      const item = bigRoadGraph[rowIndex][columnIndex];
-      if (typeof item !== 'undefined') {
-        currentLength++;
-        indexArr.push({
-          rowIndex: rowIndex,
-          columnIndex: columnIndex,
-          order: item.order,
-        });
-      }
-    }
-    lengthArr.push(currentLength);
-  }
   {
     const item1 = bigRoadGraph[1][rowGap];
     const item2 = bigRoadGraph[0][rowGap + 1];
@@ -79,6 +75,25 @@ export function generateDownRoadData(
       return downGraphArr;
     }
   }
+
+  // 对 BigRoad 的每一列进行处理
+  for (let columnIndex = 0; columnIndex < maxColumnCount; columnIndex++) {
+    let currentLength = 0;
+    for (let rowIndex = 0; rowIndex < bigRoadGraph.length; rowIndex++) {
+      const item = bigRoadGraph[rowIndex][columnIndex];
+      if (typeof item !== 'undefined') {
+        currentLength += 1;
+        indexArr.push({
+          rowIndex: rowIndex,
+          columnIndex: columnIndex,
+          order: item.order,
+        });
+      }
+    }
+    lengthArr.push(currentLength);
+  }
+
+  // 使用真实的 order 重新排序
   indexArr.sort((a, b) => a.order - b.order);
   indexArr.forEach(item => {
     if (item.order >= beginIndex) {
@@ -119,9 +134,9 @@ export abstract class DownRoad extends Road<DownRoadItem> {
    };
    return this.getPrediction(fakeNextRound);
    * ```
-   * @return {boolean} repetition - true 为红色 false 为蓝色
+   * @return {boolean|undefined} repetition - true 为红色 false 为蓝色
    */
-  public abstract get bankerPrediction(): boolean;
+  public abstract get bankerPrediction(): boolean | undefined;
 
   /**
    * 闲问路 (对外暴露为 getter)
@@ -137,9 +152,9 @@ export abstract class DownRoad extends Road<DownRoadItem> {
      return this.getPrediction(fakeNextRound);
    }
    * ```
-   * @return {boolean} repetition - true 为红色 false 为蓝色
+   * @return {boolean|undefined} repetition - true 为红色 false 为蓝色
    */
-  public abstract get playerPrediction(): boolean;
+  public abstract get playerPrediction(): boolean | undefined;
 
   /**
    * 庄/闲 问路 的结果
@@ -147,7 +162,7 @@ export abstract class DownRoad extends Road<DownRoadItem> {
   protected getPrediction(
     fakeNextRound: RoundResult,
     downRoadGap: DownRoadGap,
-  ): boolean {
+  ): boolean | undefined {
     const fakeRoundResults = this.roundResults.map(result =>
       RoundResult.from(result),
     ); // Todo: is deep copy necessary?
@@ -161,7 +176,9 @@ export abstract class DownRoad extends Road<DownRoadItem> {
       fakeBigRoad.rawArray,
       downRoadGap,
     );
-    const fakeNextDownRoadItem = fakeDownRoadData[fakeDownRoadData.length - 1];
-    return fakeNextDownRoadItem.repetition;
+    // 结果数目不足时 DownRoadPrediction 可能为 undefined
+    const fakeNextDownRoadItem: DownRoadItem | undefined =
+      fakeDownRoadData[fakeDownRoadData.length - 1];
+    return fakeNextDownRoadItem ? fakeNextDownRoadItem.repetition : undefined;
   }
 }

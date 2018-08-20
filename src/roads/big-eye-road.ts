@@ -57,7 +57,7 @@ export class BigEyeRoad extends DownRoad {
    * 即 下一局是庄赢的话 当前下路图的下一个 Item 是什么颜色的
    * @return {boolean} repetition - true 为红色 false 为蓝色
    */
-  public get bankerPrediction(): boolean {
+  public get bankerPrediction(): boolean | undefined {
     const fakeNextRound: RoundResult = {
       order: this.roundResults.length,
       result: 0, // Dummy
@@ -72,7 +72,7 @@ export class BigEyeRoad extends DownRoad {
    * 即 下一局是闲赢的话 当前下路图的下一个 Item 是什么颜色的
    * @return {boolean} repetition - true 为红色 false 为蓝色
    */
-  public get playerPrediction(): boolean {
+  public get playerPrediction(): boolean | undefined {
     const fakeNextRound: RoundResult = {
       order: this.roundResults.length,
       result: 0, // Dummy
